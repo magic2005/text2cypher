@@ -1,0 +1,11 @@
+__pycache__/
+.pytest_cache/
+*.pyc
+.env
+.venv/
+
+# 评测原始结果与临时证据不入库；只保留题集与公开报告。
+evaluation/*.json
+!evaluation/questions.json
+evaluation/mock_teacher_2026-10-14/*.json
+!evaluation/mock_teacher_2026-10-14/questions.json
