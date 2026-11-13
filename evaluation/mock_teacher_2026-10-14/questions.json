@@ -1,0 +1,152 @@
+[
+  {
+    "id": "S01",
+    "level": "简单",
+    "question": "名称以 ts-admin- 开头的不同微服务共有几个？"
+  },
+  {
+    "id": "S02",
+    "level": "简单",
+    "question": "图谱中 HTTP DELETE 入口 API 有多少种不同路径？"
+  },
+  {
+    "id": "S03",
+    "level": "简单",
+    "question": "名为 food_delivery 的队列分别属于哪些微服务？"
+  },
+  {
+    "id": "S04",
+    "level": "简单",
+    "question": "请给出 ts-admin-order-service 对应的微服务节点 ID。"
+  },
+  {
+    "id": "S05",
+    "level": "简单",
+    "question": "AdminOrderServiceImpl 实现类的全限定名是什么？"
+  },
+  {
+    "id": "S06",
+    "level": "简单",
+    "question": "方法名为 addOrder 的代码方法分别位于哪些类？"
+  },
+  {
+    "id": "S07",
+    "level": "简单",
+    "question": "目标服务名为 ts-station-service 的下游 API 有多少种不同路径？"
+  },
+  {
+    "id": "S08",
+    "level": "简单",
+    "question": "当前图谱中消息交换机有哪些不同类型？"
+  },
+  {
+    "id": "S09",
+    "level": "简单",
+    "question": "图谱中记录了多少个调用点节点？"
+  },
+  {
+    "id": "S10",
+    "level": "简单",
+    "question": "ts-admin-order-service 的入口 API 使用了几种不同的 HTTP 方法？"
+  },
+  {
+    "id": "M01",
+    "level": "中等",
+    "question": "列出 ts-admin-order-service 对外开放的 HTTP 方法与对应路径。"
+  },
+  {
+    "id": "M02",
+    "level": "中等",
+    "question": "名为 addOrder 的方法直接访问了哪些下游微服务？"
+  },
+  {
+    "id": "M03",
+    "level": "中等",
+    "question": "ts-admin-basic-info-service 通过 REST 调用的目标服务有哪些？"
+  },
+  {
+    "id": "M04",
+    "level": "中等",
+    "question": "DELETE /api/v1/adminorderservice/adminorder/{orderId}/{trainNumber} 由哪个方法提供？"
+  },
+  {
+    "id": "M05",
+    "level": "中等",
+    "question": "哪些微服务通过下游 API 同步依赖 ts-order-service？"
+  },
+  {
+    "id": "M06",
+    "level": "中等",
+    "question": "面向 ts-station-service 的下游 API 分别映射到了哪些入口路径？请成对列出。"
+  },
+  {
+    "id": "M07",
+    "level": "中等",
+    "question": "adminorder.service.AdminOrderServiceImpl 实现的是哪个接口？"
+  },
+  {
+    "id": "M08",
+    "level": "中等",
+    "question": "哪些方法拥有调用点节点？给出方法全限定名及调用点源码行号。"
+  },
+  {
+    "id": "M09",
+    "level": "中等",
+    "question": "ts-admin-order-service 每种 HTTP 方法各对应多少个不同的入口 API？"
+  },
+  {
+    "id": "M10",
+    "level": "中等",
+    "question": "ts-delivery-service 持有的消息队列叫什么，哪个方法负责消费？"
+  },
+  {
+    "id": "M11",
+    "level": "中等",
+    "question": "哪些队列名称被至少两个不同微服务使用？"
+  },
+  {
+    "id": "M12",
+    "level": "中等",
+    "question": "ts-admin-order-service 中哪些方法发起下游调用？列出方法和目标服务。"
+  },
+  {
+    "id": "H01",
+    "level": "复杂",
+    "question": "从 ts-admin-order-service 的入口 API 经过控制器与实现方法，最终会访问哪些下游服务？列出入口路径、实现方法和目标服务。"
+  },
+  {
+    "id": "H02",
+    "level": "复杂",
+    "question": "哪些入口路径能在不超过两跳的方法调用内到达一个同步请求 ts-order-service 的方法？"
+  },
+  {
+    "id": "H03",
+    "level": "复杂",
+    "question": "从 AdminBasicInfoController.getAllStations 的入口开始，经过接口调用后到 ts-station-service 的完整 REST 路径是什么？列出入口路径、实现方法和下游路径。"
+  },
+  {
+    "id": "H04",
+    "level": "复杂",
+    "question": "调用 ts-station-service 的下游 API 在图谱中映射到哪些真实入口 API？同时指出发起调用的方法。"
+  },
+  {
+    "id": "H05",
+    "level": "复杂",
+    "question": "food_delivery 消息从哪个发布方法真正送达 ts-delivery-service 的哪个消费方法？只保留发布键与绑定键匹配的完整链路，并给出路由键。"
+  },
+  {
+    "id": "H06",
+    "level": "复杂",
+    "question": "email 消息有哪些真实可达的发布到消费闭合链路？列出发布方法、队列所属服务和消费方法，排除无消费者或路由键不一致的记录。"
+  },
+  {
+    "id": "H07",
+    "level": "复杂",
+    "question": "ts-admin-order-service 中哪些入口方法经接口调用后会同步请求 ts-order-service？给出 HTTP 方法、入口路径和入口方法。"
+  },
+  {
+    "id": "H08",
+    "level": "复杂",
+    "question": "ts-admin-basic-info-service 发起的 REST 调用中，哪些下游 API 已映射到目标服务的入口 API？列出目标服务以及两端路径。"
+  }
+]
