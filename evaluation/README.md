@@ -32,6 +32,14 @@ tools/
   evaluate.py                       # 独立题执行
   mock_teacher_eval.py              # 模拟教师题执行
   compare_mock_teacher.py           # 修复前后 local-oracle 对比
+  build_evaluation.py               # 只读重建参考答案
+  audit_references.py               # 旧新参考答案审计
+  audit_results.py                  # 逐题失败分析
+  compare_runs.py                   # 评测运行对比
+  regression_live.py                # 保存的 Cypher 只读回放
+  review_evaluation.py              # 人工复核和重新计分
+  check_mq_targets.py               # 服务依赖与 MQ 闭合链核对
+  _audit_common.py                  # 审计脚本共享的纯 Python 辅助函数
 tests/
   test_evaluation.py                # 纯离线测试（40 项）
 ```
@@ -217,14 +225,76 @@ python -m tools.compare_mock_teacher \
 工具要求两次运行都是 `local_oracle` 模式，题号集合、题目和 gold 查询完全一致；
 逐行比较使用完整行的多重集（`Counter`），这会保留重复行次数，与自动判定的集合语义
 不同——对比工具回答的是“流水线输出是否逐行稳定”，不是“目标集合是否正确”。
-
 输出包含 `graph_stable`、`same_graph_between_runs`、`all_reference_rows_same`、
 `before_passed`、`after_passed` 和逐题明细。图谱不稳定时 `after_passed` 为 `null`。
 默认文件名 `results.json` / `results_before_validation_and_chain_fix.json` 在交付仓库中
 并不存在，这是有意的证据边界；缺少文件时工具会提示先用
 `python -m tools.mock_teacher_eval --local-oracle --output ...` 生成。
 
-## 9. 证据与归档策略
+## 9. 05_audit_regression 参考审计与回归工具
+
+这组工具用于维护参考答案、分析模型失败、记录人工复核和检查 MQ 证据。导入和离线
+数据校验不加载 Neo4j；只有明确执行图谱查询的命令才会懒加载 `agent.core`。
+
+```bash
+# 只检查当前题集结构
+python -m tools.build_evaluation --check-only
+
+# 在只读 Neo4j 上重建全部参考结果，默认生成本地候选报告
+python -m tools.build_evaluation --output questions_candidate.json --force
+
+# 审计旧参考集与重建候选；旧快照在新克隆中缺失时，用 --before 指定本地副本
+python -m tools.audit_references \
+  --before questions_before_semantic_audit.json \
+  --after questions_candidate.json \
+  --output reference_audit.json
+
+# 检查一次模型运行的失败项，可加 --all 查看全部题目
+python -m tools.audit_results --run latest_run.json --output failure_audit.json
+
+# 比较两次独立评测；只有题集哈希相同且图谱连续稳定时才报告可比总分
+python -m tools.compare_runs \
+  --before run_before_semantic_fixes.json --after latest_run.json \
+  --reference-audit reference_audit.json --output run_comparison.json
+
+# 对保存的旧 Cypher 做在线只读回放；注入本地模型替身，不调用外部模型 API
+python -m tools.regression_live --input latest_run.json --only M07 H05
+
+# 如需重试保存回放记录中的失败题
+python -m tools.regression_live --input latest_run.json --resume --retry-failed
+
+# 对已执行但未确认的题写入人工结论，并按题集哈希与图谱漂移规则重算总分
+python -m tools.review_evaluation M03 correct \
+  --reason "核对目标字段与参考结果逐项一致"
+
+# 对题目提及的服务检查服务级依赖、路由键一致性和闭合消费链
+python -m tools.check_mq_targets --output mq_targets_audit.json
+```
+
+`build_evaluation` 会先检查只读 Cypher、Schema、结果唯一性和完整性。默认写到被 Git
+忽略的候选文件；确认参考差异后，才使用 `--in-place --force` 替换提交中的题集。
+重建期间图谱版本计数发生变化时，工具会拒绝把候选标记为完整。`audit_references`
+对比问题、查询、范围、结果值和图谱指纹，并将新题集校验结果写进报告。它不会判断
+参考 Cypher 的业务语义正确性，仍需结合题意和图谱核查。
+
+完整重建且审阅差异后，明确写回题集：
+
+```bash
+python -m tools.build_evaluation --in-place --force
+```
+
+`audit_results` 不修改正确性标签。`compare_runs` 只有在 30 个题号齐全、题集哈希相同、
+每题结论已确定且旧运行结束图谱与新运行开始图谱相同的情况下才给出分数差。人工复核
+要求非空依据；重复改判需显式使用 `--replace-review`。`regression_live` 对保存的
+Cypher 调用当前 `ask()`，因此需要本地 Schema、Neo4j 只读凭据和图谱访问；它不会调用
+外部模型，但 `ask()` 会按应用约定追加本机 `data/history.jsonl`。MQ 检查也只读图谱，
+并将服务级依赖与路由键相等且有消费者的闭合链分别报告，未验证的依赖差异不会被当作
+消息实际送达。
+
+所有生成的运行、审计、回放 JSON 都受 `.gitignore` 排除；题集和人工编写的公开报告仍
+是跟踪文件。若需归档生成证据，应另选受控位置，并检查内容后再提交。
+
+## 10. 证据与归档策略
 
 入库：
 
@@ -241,7 +311,7 @@ python -m tools.compare_mock_teacher \
 历史报告中的数字只代表当时的图谱快照与模型版本；不要用新图谱覆盖旧基线。
 需要新的基线时，用带日期的 `--output` 另存，并在报告中写明日期、图谱指纹和模型。
 
-## 10. 与其它工作包的兼容契约
+## 11. 与其它工作包的兼容契约
 
 `tools/evaluate.py` 保留以下公开名字，供后续合并的 05 审计包和 03 测试包复用：
 
@@ -253,12 +323,11 @@ python -m tools.compare_mock_teacher \
 - `save_report(records, cfg, graph_before=None, graph_after=None, ...)`：
   前四个位置参数保持兼容，新增参数全部为关键字参数。
 
-05 的 `review_evaluation.py` 依赖 `DEST`、`save_report` 和四个位置参数；
-`check_mq_targets.py`、`regression_live.py` 依赖 `ROOT`。
-03 的 `tests/test_core.py` 依赖 `canonical`，并另外依赖 05 的 `build_evaluation`；
-本分支不包含 `build_evaluation.py`，因此 03 的完整测试要在 05 合并后才能运行。
+05 的人工复核工具使用 `evaluation.benchmark` 重算三态成绩，不依赖模型配置或
+`tools.evaluate.save_report`。在线 MQ 检查与回放会在进入图谱查询路径时懒加载
+`agent.core`；离线审计脚本只依赖标准库和 `evaluation.benchmark`。
 
-## 11. 维护流程
+## 12. 维护流程
 
 1. 新增/修改题目：先在真实图谱上执行参考查询，保存逐行结果、行数、唯一性、顺序和
    指纹；组合题还要保存四类证据计数。
@@ -267,7 +336,7 @@ python -m tools.compare_mock_teacher \
 4. 重新生成一份带日期的基线，不要覆盖旧报告；
 5. 如修改题集，`--resume` 会因 `dataset_sha256` 变化被拒绝，这是预期行为。
 
-## 12. 已知限制
+## 13. 已知限制
 
 - 图谱指纹只覆盖 `n.图谱版本` 的节点计数，不能证明节点/关系属性完全未变；
   参考答案仍以冻结时的图谱快照为准。
@@ -277,5 +346,5 @@ python -m tools.compare_mock_teacher \
   这是服务级去重的预期差异，不是数据错误。
 - `H03`/`H08` 在历史真实模型运行中出现过额外展示行（分别 +1/+5），属于展示层瑕疵；
   相关题目的正确性仍以目标集合判定和人工复核为准。
-- 本分支不包含 `data/`、`agent/` 之外的运行依赖，也不包含 05 的参考构建脚本；
-  实跑前需要完整项目环境。
+- 当前 Git 仓库不跟踪课程图谱的 `data/schema.json` 和本机 `.env`；参考构建与在线回放
+  需要这些本地文件、Neo4j 只读账号及网络连通性。离线审计功能不依赖图谱。

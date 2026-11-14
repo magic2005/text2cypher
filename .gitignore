@@ -3,6 +3,7 @@ __pycache__/
 *.pyc
 .env
 .venv/
+data/history.jsonl
 
 # 评测原始结果与临时证据不入库；只保留题集与公开报告。
 evaluation/*.json
