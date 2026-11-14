@@ -28,10 +28,7 @@ evaluation/
     README.md
     试题与测试报告.md                # 历史报告（入库）
     deepseek_baseline_report.md     # 历史报告（入库）
-tools/
-  evaluate.py                       # 独立题执行
-  mock_teacher_eval.py              # 模拟教师题执行
-  compare_mock_teacher.py           # 修复前后 local-oracle 对比
+work_packages/audit_regression_05/
   build_evaluation.py               # 只读重建参考答案
   audit_references.py               # 旧新参考答案审计
   audit_results.py                  # 逐题失败分析
@@ -40,6 +37,11 @@ tools/
   review_evaluation.py              # 人工复核和重新计分
   check_mq_targets.py               # 服务依赖与 MQ 闭合链核对
   _audit_common.py                  # 审计脚本共享的纯 Python 辅助函数
+tools/
+  evaluate.py                       # 独立题执行
+  mock_teacher_eval.py              # 模拟教师题执行
+  compare_mock_teacher.py           # 修复前后 local-oracle 对比
+  <05 同名入口>.py                  # 转发到 work_packages/audit_regression_05/
 tests/
   test_evaluation.py                # 纯离线测试（40 项）
 ```
@@ -238,39 +240,40 @@ python -m tools.compare_mock_teacher \
 
 ```bash
 # 只检查当前题集结构
-python -m tools.build_evaluation --check-only
+python -m work_packages.audit_regression_05.build_evaluation --check-only
 
 # 在只读 Neo4j 上重建全部参考结果，默认生成本地候选报告
-python -m tools.build_evaluation --output questions_candidate.json --force
+python -m work_packages.audit_regression_05.build_evaluation --output questions_candidate.json --force
 
 # 审计旧参考集与重建候选；旧快照在新克隆中缺失时，用 --before 指定本地副本
-python -m tools.audit_references \
+python -m work_packages.audit_regression_05.audit_references \
   --before questions_before_semantic_audit.json \
   --after questions_candidate.json \
   --output reference_audit.json
 
 # 检查一次模型运行的失败项，可加 --all 查看全部题目
-python -m tools.audit_results --run latest_run.json --output failure_audit.json
+python -m work_packages.audit_regression_05.audit_results --run latest_run.json --output failure_audit.json
 
 # 比较两次独立评测；只有题集哈希相同且图谱连续稳定时才报告可比总分
-python -m tools.compare_runs \
+python -m work_packages.audit_regression_05.compare_runs \
   --before run_before_semantic_fixes.json --after latest_run.json \
   --reference-audit reference_audit.json --output run_comparison.json
 
 # 对保存的旧 Cypher 做在线只读回放；注入本地模型替身，不调用外部模型 API
-python -m tools.regression_live --input latest_run.json --only M07 H05
+python -m work_packages.audit_regression_05.regression_live --input latest_run.json --only M07 H05
 
 # 如需重试保存回放记录中的失败题
-python -m tools.regression_live --input latest_run.json --resume --retry-failed
+python -m work_packages.audit_regression_05.regression_live --input latest_run.json --resume --retry-failed
 
 # 对已执行但未确认的题写入人工结论，并按题集哈希与图谱漂移规则重算总分
-python -m tools.review_evaluation M03 correct \
+python -m work_packages.audit_regression_05.review_evaluation M03 correct \
   --reason "核对目标字段与参考结果逐项一致"
 
 # 对题目提及的服务检查服务级依赖、路由键一致性和闭合消费链
-python -m tools.check_mq_targets --output mq_targets_audit.json
+python -m work_packages.audit_regression_05.check_mq_targets --output mq_targets_audit.json
 ```
 
+`tools/` 中旧的 05 命令入口仍可用；它们只负责转发到独立工作包目录。
 `build_evaluation` 会先检查只读 Cypher、Schema、结果唯一性和完整性。默认写到被 Git
 忽略的候选文件；确认参考差异后，才使用 `--in-place --force` 替换提交中的题集。
 重建期间图谱版本计数发生变化时，工具会拒绝把候选标记为完整。`audit_references`
@@ -280,7 +283,7 @@ python -m tools.check_mq_targets --output mq_targets_audit.json
 完整重建且审阅差异后，明确写回题集：
 
 ```bash
-python -m tools.build_evaluation --in-place --force
+python -m work_packages.audit_regression_05.build_evaluation --in-place --force
 ```
 
 `audit_results` 不修改正确性标签。`compare_runs` 只有在 30 个题号齐全、题集哈希相同、
