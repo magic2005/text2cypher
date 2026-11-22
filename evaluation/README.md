@@ -1,7 +1,7 @@
 # 评测集与评测执行（04_evaluation）
 
 本目录是 Text2Cypher 的评测模块：保存两套互相独立的 30 题评测集、评测执行工具、
-逐题判定规则和历史报告。它不包含图谱构建、检索或生成代码，也不修改 `agent/core.py`。
+逐题判定规则、历史报告和三方 profiling。三方评测通过核心流水线的可选配置接入模型与计时。
 
 ## 1. 定位与隔离边界
 
@@ -12,8 +12,8 @@
   用于验证“教师正式题尚未提供”时整条评测链路能跑通。
 - `evaluation/benchmark.py` 只使用 Python 标准库，不 import `agent.core`、
   `neo4j` 或 `streamlit`。离线测试可以在没有图数据库、没有模型密钥的机器上运行。
-- 只有 `tools/evaluate.py` 与 `tools/mock_teacher_eval.py` 的**实际运行路径**才懒加载
-  `agent.core`；import 工具、校验题集、跑 pytest 都不会触发数据库连接。
+- `tools/evaluate.py`、`tools/mock_teacher_eval.py` 和 `tools/profile_agents.py` 在实际需要 Neo4j 时懒加载
+  `agent.core`。导入评测工具、离线校验题集和运行 pytest 都不会触发数据库连接。
 
 ## 2. 文件布局
 
@@ -22,6 +22,7 @@ evaluation/
   __init__.py
   benchmark.py                      # 题集契约、只读检查、判定、报告聚合
   questions.json                    # 独立题集（30 题，入库）
+  profile_workload.json             # 三方 profiling 的独立合成代码图、题目和示例
   README.md
   mock_teacher_2026-10-14/
     questions.json                  # 模拟教师题号/题目（入库）
@@ -32,6 +33,7 @@ tools/
   evaluate.py                       # 独立题执行
   mock_teacher_eval.py              # 模拟教师题执行
   compare_mock_teacher.py           # 修复前后 local-oracle 对比
+  profile_agents.py                 # 三方 profiling 和 H08 复核入口
 tests/
   test_evaluation.py                # 纯离线测试（40 项）
 ```
@@ -279,3 +281,49 @@ python -m tools.compare_mock_teacher \
   相关题目的正确性仍以目标集合判定和人工复核为准。
 - 本分支不包含 `data/`、`agent/` 之外的运行依赖，也不包含 05 的参考构建脚本；
   实跑前需要完整项目环境。
+
+## 三方 profiling
+
+`tools.profile_agents` 比较无 Agent 单次生成、DeepSeek Harness 原生 headless 与 Text2Cypher 的完整流水线。三组共享合成图、输入问题、Schema、DeepSeek V4.1 Flash `max`、单次生成上限和只读执行门禁。Harness 每题开启新会话，最多尝试四次只读 Cypher 探查，并将最终查询交给本地 Neo4j 评分。Text2Cypher 保留示例检索、实体识别、校验修复和总结。
+
+`profile_workload.json` 包含 50 个合成节点、69 条边、30 道题及 6 条独立知识库示例。每道题的出参列角色和参考行有独立定义。评分保留角色与值类型，题目可以指定顺序或重复数。模型只收到题目、Schema 及该模式所需的运行信息。
+
+### 离线校验
+
+```bash
+python -m pip install pytest
+python -m pytest -q
+python -m tools.profile_agents --check-fixture
+```
+
+上述流程可以在没有 Neo4j 驱动、数据库、Harness 和模型密钥的环境中执行。需要 Neo4j 驱动的核心回归测试在安装驱动后运行。
+
+### 本机复现
+
+已验证环境为 Python 3.12、Neo4j Community 2026.10.2、Neo4j Python 驱动 6.0.3 和 DeepSeek Harness 0.2.2-rc.3。准备专用本机 Neo4j，默认地址为 `bolt://127.0.0.1:17687`，默认用户名为 `neo4j`。设置 `T2C_PROFILE_NEO4J_PASSWORD`，可用 `T2C_PROFILE_NEO4J_USER` 改用户名。Bolt 地址可用 `--bolt` 指定。
+
+首次使用 `--seed` 往空库写入合成图；已预载同一份图时省略 `--seed`。预检会执行参考 Cypher，并与独立定义的参考行核对。通过进程环境设置 `OPENCODE_GO_API_KEY` 后可启动三方在线小样本。把 `dsh` 放到 `PATH`，也可通过 `--harness-executable` 指定 CLI，Windows 桌面版可以传入 `--harness-installation`。
+
+```bash
+python -m pip install neo4j==6.0.3
+python -m pytest -q
+python -m tools.profile_agents --seed --verify-only --output evaluation/profile_references.json
+python -m tools.profile_agents --only S01 H03 H08 --output evaluation/profile_smoke.json
+python -m tools.profile_agents --audit-empty evaluation/profile_smoke.json --output evaluation/profile_h08_audit.json
+```
+
+完整运行可省略 `--only` 并指定 `--workers 4`。脚本按题轮转三组顺序，逐题保存结果和阶段统计，结束后再次核验图谱。可用相同参数加 `--resume` 续跑。H08 复核在事务内添加一条消费边，回放三组已生成的 Cypher，随后回滚并核验图谱。
+
+逐题输出保留在本地。汇总应报告结果匹配、验证失败、传输失败与模型输出限制。Harness 原生步骤计时包含 MCP 工具执行；其步骤耗时与工具耗时有重叠。端到端 P50/P95 使用各组实测墙钟时间。
+
+### 首轮实验记录
+
+2026-11-22 在同一合成图上完成每组三十题，四个工作线程，每题每组一次，单次模型输出上限 8192 token。
+
+| 模式 | 执行结果匹配 | P50（秒） | P95（秒） | 调用或步骤 | 记录的 Token |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 无 Agent | 27/30 | 6.61 | 119.24 | 30 | 53,225 |
+| DeepSeek Harness | 28/30 | 10.77 | 69.78 | 96 | 244,097 |
+| Text2Cypher | 30/30 | 9.01 | 70.41 | 60 | 86,985 |
+
+延迟纳入失败和重试。H07 首轮只有 Text2Cypher 命中，配对复跑三组均未完成。H08 原图上的正确结果为空；临时新增消费者后，参考结果为一条，无 Agent 返回零条，Harness 返回五条，Text2Cypher 返回正确的一条。Text2Cypher 的 28 次模型总结单次中位 3.04 秒，累计 93.6 秒。
