@@ -5,10 +5,14 @@ import time
 import urllib.request
 import urllib.error
 import socket
+from contextlib import contextmanager
 from pathlib import Path
 
 from neo4j import GraphDatabase, READ_ACCESS, Query
 from neo4j.graph import Node, Relationship, Path as GraphPath
+
+from . import opencode_go
+
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
@@ -22,11 +26,14 @@ def configuration():
     from dotenv import load_dotenv
     load_dotenv(ROOT / ".env")
     provider = os.getenv("LLM_PROVIDER", "deepseek").lower()
-    if provider not in {"deepseek", "glm", "kimi"}:
-        raise ValueError("仅允许 DeepSeek、GLM 或 Kimi")
+    if provider not in PROVIDERS:
+        raise ValueError("仅允许 DeepSeek、GLM、Kimi 或 OpenCode Go 上的 DeepSeek")
+    key = os.getenv("LLM_API_KEY", "")
+    if provider == "opencode-go":
+        key = os.getenv("OPENCODE_GO_API_KEY") or key
     return {"uri": os.getenv("NEO4J_URI", ""), "user": os.getenv("NEO4J_USER", ""),
             "password": os.getenv("NEO4J_PASSWORD", ""), "provider": provider,
-            "key": os.getenv("LLM_API_KEY", ""), "model": os.getenv("LLM_MODEL", ""),
+            "key": key, "model": os.getenv("LLM_MODEL", ""),
             "timeout": min(30, max(1, int(os.getenv("QUERY_TIMEOUT_SECONDS", "8"))))}
 
 
@@ -36,15 +43,51 @@ class Graph:
             raise RuntimeError("请在 .env 中配置 Neo4j 连接")
         self.driver = GraphDatabase.driver(cfg["uri"], auth=(cfg["user"], cfg["password"]), connection_timeout=8)
         self.timeout = cfg["timeout"]
+        self.profile = cfg.get("profile")
+        self.profile_stage = None
 
     def close(self):
         self.driver.close()
 
     def run(self, cypher, params=None):
-        with self.driver.session(default_access_mode=READ_ACCESS, fetch_size=100) as s:
-            s.run(Query("EXPLAIN " + cypher, timeout=self.timeout), params or {}).consume()
-            return [{key: graph_value(row[key]) for key in row.keys()}
-                    for row in s.run(Query(cypher, timeout=self.timeout), params or {})]
+        params = params or {}
+        started = time.perf_counter()
+        event = {"kind": "graph", "stage": self.profile_stage, "status": "error",
+                 "explain_seconds": None, "execute_seconds": None}
+        try:
+            with self.driver.session(default_access_mode=READ_ACCESS, fetch_size=100) as s:
+                explain_started = time.perf_counter()
+                try:
+                    summary = s.run(Query("EXPLAIN " + cypher, timeout=self.timeout), params).consume()
+                    if summary.query_type != "r":
+                        raise ValueError("Neo4j EXPLAIN 未确认查询为只读")
+                finally:
+                    event["explain_seconds"] = time.perf_counter() - explain_started
+                execute_started = time.perf_counter()
+                try:
+                    rows = [{key: graph_value(row[key]) for key in row.keys()}
+                            for row in s.run(Query(cypher, timeout=self.timeout), params)]
+                finally:
+                    event["execute_seconds"] = time.perf_counter() - execute_started
+            event.update(status="ok", rows=len(rows))
+            return rows
+        finally:
+            if self.profile is not None:
+                event["elapsed_seconds"] = time.perf_counter() - started
+                self.profile.append(event)
+
+
+@contextmanager
+def graph_stage(graph, stage):
+    if not isinstance(graph, Graph) or graph.profile is None:
+        yield
+        return
+    previous = graph.profile_stage
+    graph.profile_stage = stage
+    try:
+        yield
+    finally:
+        graph.profile_stage = previous
 
 
 def graph_value(value):
@@ -184,12 +227,13 @@ def intent_profile(text):
     return tags
 
 
-def retrieve_ranked(question, limit=4):
+def retrieve_ranked(question, limit=4, *, knowledge=None):
     query_intents = intent_profile(question)
     entity_pattern = r"ts-[a-z0-9-]+|[a-z]+_[a-z0-9_]+|[a-z]+[A-Z][A-Za-z0-9_]*"
     entities = {term.lower() for term in re.findall(entity_pattern, question)}
     ranked = []
-    for item in examples():
+    items = examples() if knowledge is None else knowledge
+    for item in items:
         item_intents = intent_profile(item["question"])
         if item["category"] == "REST与MQ":
             item_intents.add("rest_mq_union")
@@ -231,10 +275,13 @@ def recognize(question, graph, info):
 
 PROVIDERS = {"deepseek": ("https://api.deepseek.com/chat/completions", "deepseek-flash"),
              "glm": ("https://open.bigmodel.cn/api/paas/v4/chat/completions", "glm-4-flash"),
-             "kimi": ("https://api.moonshot.cn/v1/chat/completions", "moonshot-v1-8k")}
+             "kimi": ("https://api.moonshot.cn/v1/chat/completions", "moonshot-v1-8k"),
+             opencode_go.PROVIDER: (opencode_go.ENDPOINT, opencode_go.MODEL)}
 
 
 def generate(messages, cfg):
+    if cfg.get("provider") == opencode_go.PROVIDER:
+        return opencode_go.generate(messages, cfg)
     if not cfg["key"]:
         raise RuntimeError("未配置允许的模型密钥 LLM_API_KEY")
     endpoint, default_model = PROVIDERS[cfg["provider"]]
@@ -550,14 +597,21 @@ def verify_complete_chains(question, rows, graph, entities=()):
 
 
 def ask(question, graph, cfg, model=generate, level="自动"):
-    started = time.time()
+    started = time.perf_counter()
+    if cfg.get("provider") == opencode_go.PROVIDER and not cfg.get("session_id"):
+        cfg = {**cfg, "session_id": opencode_go.session_id()}
+
+    def stage_config(stage):
+        return {**cfg, "model_stage": stage} if cfg.get("profile") is not None else cfg
+
     record = {"question": question, "level": level, "stages": [], "queries": [], "results": [], "topology": {}, "summary": "", "error": None,
               "answer_complete": True, "display_limit": DISPLAY_ROWS, "truncated_subqueries": []}
     try:
-        info = schema()
-        ranking = retrieve_ranked(question)
+        info = cfg.get("schema_info") or schema()
+        ranking = retrieve_ranked(question, knowledge=cfg.get("knowledge"))
         retrieved = [row["example"] for row in ranking]
-        entities = recognize(question, graph, info)
+        with graph_stage(graph, "recognition"):
+            entities = recognize(question, graph, info)
         record["stages"].append({"stage": "检索", "examples": [x.get("id") for x in retrieved],
                                   "ranking": [{"id": x["example"]["id"], "score": x["score"],
                                                "reasons": x["reasons"]} for x in ranking], "entities": entities})
@@ -567,7 +621,8 @@ def ask(question, graph, cfg, model=generate, level="自动"):
         system = "你是只读 Neo4j Cypher 生成器。只使用提供的真实 Schema。只输出 JSON：{\"queries\":[\"MATCH ... RETURN ... LIMIT 100\"]}。难度为简单时优先单节点或单跳；中等时支持多跳和聚合；复杂时分析是否需要把变更影响或 RPC+MQ 联合问题拆成多个独立子查询。开放式列举使用 DISTINCT 去重；不要把 LIMIT 当成答案范围。凡用 发布至→路由至 推断消息实际到达队列，必须比较两条关系的 路由键，相等且非空才算真实路由；默认交换机的共享节点不足以证明消息送达。用户问 MQ 完整发布到消费链路时，必须让发布者→交换机→队列→消费者四类节点及三段关系组成闭合路径，返回这些节点或真实 path；部分链路问题可以使用 OPTIONAL MATCH，但不得把无消费者的部分链路当完整链路。优先返回相关节点和真实关系或 path 以绘制拓扑，也返回用户问题要求的字段。遇到同名实体用全限定名或 nodeId 消歧；不要编造标签属性，不要写入。"
         user = json.dumps({"question":question,"level":level,"schema":compact,"entities":entities,
                            "examples":[{"question":x["question"],"cypher":x["cypher"]} for x in retrieved]},ensure_ascii=False)
-        raw = model([{"role":"system","content":system},{"role":"user","content":user}],cfg)
+        raw = model([{"role":"system","content":system},{"role":"user","content":user}],
+                    stage_config("generation"))
         record["stages"].append({"stage":"生成","raw":raw})
         queries = parse_queries(raw)
         if not 1 <= len(queries) <= 4:
@@ -592,7 +647,7 @@ def ask(question, graph, cfg, model=generate, level="自动"):
                     {"role":"system","content":"你是 Cypher 查询修正器。只输出 JSON：{\"queries\":[\"MATCH ... RETURN ... LIMIT 100\"]}，且恰好一条查询。不得使用 CALL、过程、写操作或不存在于 Schema 的字段。保留原子查询意图和结果投影。"},
                     {"role":"user","content":json.dumps({"question":question,"schema":compact,
                         "failed_cypher":original,"validation_error":str(exc)},ensure_ascii=False)}]
-                repaired_raw = model(repair_messages,cfg)
+                repaired_raw = model(repair_messages, stage_config("repair"))
                 record["stages"].append({"stage":"生成修正","subquery":index,"raw":repaired_raw,
                                           "reason":str(exc)})
                 replacements = parse_queries(repaired_raw)
@@ -612,7 +667,8 @@ def ask(question, graph, cfg, model=generate, level="自动"):
                                       "passed":True,"after_repair":repair_applied})
             try:
                 execution_query, cap = bounded_query(q, question)
-                fetched = graph.run(execution_query)
+                with graph_stage(graph, "execution"):
+                    fetched = graph.run(execution_query)
                 truncated = len(fetched) > cap
                 rows = fetched[:cap]
                 if truncated:
@@ -631,13 +687,15 @@ def ask(question, graph, cfg, model=generate, level="自动"):
             if key not in seen:
                 seen.add(key); record["results"].append(row)
         before_route = len(record["results"])
-        record["results"], route_stage = filter_routed_messages(question, record["results"], graph)
+        with graph_stage(graph, "route_verification"):
+            record["results"], route_stage = filter_routed_messages(question, record["results"], graph)
         record["stages"].append(route_stage)
         record["discarded_mismatched_route_rows"] = before_route-len(record["results"])
         if full_chain_intent(question):
             chain_input = list(record["results"])
             original_count = len(record["results"])
-            record["results"], chain_stage = verify_complete_chains(question, record["results"], graph, entities)
+            with graph_stage(graph, "chain_verification"):
+                record["results"], chain_stage = verify_complete_chains(question, record["results"], graph, entities)
             record["stages"].append(chain_stage)
             record["discarded_partial_chain_rows"] = original_count-len(record["results"])
             if chain_stage.get("insufficient_evidence"):
@@ -657,7 +715,7 @@ def ask(question, graph, cfg, model=generate, level="自动"):
             try:
                 messages = [{"role":"system","content":"仅根据给定的查询结果，用一两句中文回答原问题。不得补充数据中没有的事实；如果结果不完整，说明只展示了部分记录。"},
                             {"role":"user","content":json.dumps({"question":question,"row_count":len(record["results"]),"answer_complete":True,"rows":record["results"]},ensure_ascii=False,default=str)}]
-                summary = model(messages,cfg).strip()
+                summary = model(messages, stage_config("summary")).strip()
                 if summary:
                     record["summary"] = summary[:1000]
                     record["stages"].append({"stage":"总结","source":"allowed_model","passed":True})
@@ -666,8 +724,9 @@ def ask(question, graph, cfg, model=generate, level="自动"):
     except Exception as exc:
         record["error"] = str(exc)
         record["stages"].append({"stage":"错误","message":str(exc)})
-    record["elapsed_seconds"] = round(time.time()-started,3)
-    DATA.mkdir(exist_ok=True)
-    with (DATA / "history.jsonl").open("a", encoding="utf-8") as f:
-        f.write(json.dumps(record,ensure_ascii=False,default=str)+"\n")
+    record["elapsed_seconds"] = round(time.perf_counter() - started, 3)
+    if cfg.get("record_history", True):
+        DATA.mkdir(exist_ok=True)
+        with (DATA / "history.jsonl").open("a", encoding="utf-8") as f:
+            f.write(json.dumps(record,ensure_ascii=False,default=str)+"\n")
     return record
