@@ -1,0 +1,1840 @@
+{
+  "name": "Lantern Gallery synthetic code graph",
+  "provenance": "Independently authored synthetic graph, questions, reference queries and knowledge. All method, service, route and API values are fictional.",
+  "graph_version": "lantern-demo-v1",
+  "nodes": [
+    {
+      "id": "svc:ts-lantern-gallery-service",
+      "label": "微服务",
+      "properties": {
+        "nodeId": "svc:ts-lantern-gallery-service",
+        "图谱版本": "lantern-demo-v1",
+        "服务名称": "ts-lantern-gallery-service"
+      }
+    },
+    {
+      "id": "svc:ts-lantern-exhibit-service",
+      "label": "微服务",
+      "properties": {
+        "nodeId": "svc:ts-lantern-exhibit-service",
+        "图谱版本": "lantern-demo-v1",
+        "服务名称": "ts-lantern-exhibit-service"
+      }
+    },
+    {
+      "id": "svc:ts-lantern-archive-service",
+      "label": "微服务",
+      "properties": {
+        "nodeId": "svc:ts-lantern-archive-service",
+        "图谱版本": "lantern-demo-v1",
+        "服务名称": "ts-lantern-archive-service"
+      }
+    },
+    {
+      "id": "svc:ts-lantern-calendar-service",
+      "label": "微服务",
+      "properties": {
+        "nodeId": "svc:ts-lantern-calendar-service",
+        "图谱版本": "lantern-demo-v1",
+        "服务名称": "ts-lantern-calendar-service"
+      }
+    },
+    {
+      "id": "svc:ts-lantern-notice-service",
+      "label": "微服务",
+      "properties": {
+        "nodeId": "svc:ts-lantern-notice-service",
+        "图谱版本": "lantern-demo-v1",
+        "服务名称": "ts-lantern-notice-service"
+      }
+    },
+    {
+      "id": "svc:ts-lantern-audit-service",
+      "label": "微服务",
+      "properties": {
+        "nodeId": "svc:ts-lantern-audit-service",
+        "图谱版本": "lantern-demo-v1",
+        "服务名称": "ts-lantern-audit-service"
+      }
+    },
+    {
+      "id": "svc:ts-lantern-ops-service",
+      "label": "微服务",
+      "properties": {
+        "nodeId": "svc:ts-lantern-ops-service",
+        "图谱版本": "lantern-demo-v1",
+        "服务名称": "ts-lantern-ops-service"
+      }
+    },
+    {
+      "id": "svc:ts-lantern-docs-service",
+      "label": "微服务",
+      "properties": {
+        "nodeId": "svc:ts-lantern-docs-service",
+        "图谱版本": "lantern-demo-v1",
+        "服务名称": "ts-lantern-docs-service"
+      }
+    },
+    {
+      "id": "cls:lantern.gallery.ShowCoordinator",
+      "label": "类",
+      "properties": {
+        "nodeId": "cls:lantern.gallery.ShowCoordinator",
+        "图谱版本": "lantern-demo-v1",
+        "简单名": "ShowCoordinator",
+        "全限定名": "lantern.gallery.ShowCoordinator"
+      }
+    },
+    {
+      "id": "cls:lantern.exhibit.ObjectRegistry",
+      "label": "类",
+      "properties": {
+        "nodeId": "cls:lantern.exhibit.ObjectRegistry",
+        "图谱版本": "lantern-demo-v1",
+        "简单名": "ObjectRegistry",
+        "全限定名": "lantern.exhibit.ObjectRegistry"
+      }
+    },
+    {
+      "id": "cls:lantern.archive.RecordArchive",
+      "label": "类",
+      "properties": {
+        "nodeId": "cls:lantern.archive.RecordArchive",
+        "图谱版本": "lantern-demo-v1",
+        "简单名": "RecordArchive",
+        "全限定名": "lantern.archive.RecordArchive"
+      }
+    },
+    {
+      "id": "cls:lantern.calendar.VisitCalendar",
+      "label": "类",
+      "properties": {
+        "nodeId": "cls:lantern.calendar.VisitCalendar",
+        "图谱版本": "lantern-demo-v1",
+        "简单名": "VisitCalendar",
+        "全限定名": "lantern.calendar.VisitCalendar"
+      }
+    },
+    {
+      "id": "cls:lantern.notice.DispatchInbox",
+      "label": "类",
+      "properties": {
+        "nodeId": "cls:lantern.notice.DispatchInbox",
+        "图谱版本": "lantern-demo-v1",
+        "简单名": "DispatchInbox",
+        "全限定名": "lantern.notice.DispatchInbox"
+      }
+    },
+    {
+      "id": "cls:lantern.audit.AuditLedger",
+      "label": "类",
+      "properties": {
+        "nodeId": "cls:lantern.audit.AuditLedger",
+        "图谱版本": "lantern-demo-v1",
+        "简单名": "AuditLedger",
+        "全限定名": "lantern.audit.AuditLedger"
+      }
+    },
+    {
+      "id": "cls:lantern.ops.CacheMaintainer",
+      "label": "类",
+      "properties": {
+        "nodeId": "cls:lantern.ops.CacheMaintainer",
+        "图谱版本": "lantern-demo-v1",
+        "简单名": "CacheMaintainer",
+        "全限定名": "lantern.ops.CacheMaintainer"
+      }
+    },
+    {
+      "id": "cls:lantern.docs.HelpIndex",
+      "label": "类",
+      "properties": {
+        "nodeId": "cls:lantern.docs.HelpIndex",
+        "图谱版本": "lantern-demo-v1",
+        "简单名": "HelpIndex",
+        "全限定名": "lantern.docs.HelpIndex"
+      }
+    },
+    {
+      "id": "mtd:lantern.gallery.ShowCoordinator.openShow",
+      "label": "方法",
+      "properties": {
+        "nodeId": "mtd:lantern.gallery.ShowCoordinator.openShow",
+        "图谱版本": "lantern-demo-v1",
+        "方法名": "openShow",
+        "全限定名": "lantern.gallery.ShowCoordinator.openShow"
+      }
+    },
+    {
+      "id": "mtd:lantern.gallery.ShowCoordinator.publishOpening",
+      "label": "方法",
+      "properties": {
+        "nodeId": "mtd:lantern.gallery.ShowCoordinator.publishOpening",
+        "图谱版本": "lantern-demo-v1",
+        "方法名": "publishOpening",
+        "全限定名": "lantern.gallery.ShowCoordinator.publishOpening"
+      }
+    },
+    {
+      "id": "mtd:lantern.gallery.ShowCoordinator.emitAudit",
+      "label": "方法",
+      "properties": {
+        "nodeId": "mtd:lantern.gallery.ShowCoordinator.emitAudit",
+        "图谱版本": "lantern-demo-v1",
+        "方法名": "emitAudit",
+        "全限定名": "lantern.gallery.ShowCoordinator.emitAudit"
+      }
+    },
+    {
+      "id": "mtd:lantern.gallery.ShowCoordinator.stalePublish",
+      "label": "方法",
+      "properties": {
+        "nodeId": "mtd:lantern.gallery.ShowCoordinator.stalePublish",
+        "图谱版本": "lantern-demo-v1",
+        "方法名": "stalePublish",
+        "全限定名": "lantern.gallery.ShowCoordinator.stalePublish"
+      }
+    },
+    {
+      "id": "mtd:lantern.gallery.ShowCoordinator.publishUnclaimed",
+      "label": "方法",
+      "properties": {
+        "nodeId": "mtd:lantern.gallery.ShowCoordinator.publishUnclaimed",
+        "图谱版本": "lantern-demo-v1",
+        "方法名": "publishUnclaimed",
+        "全限定名": "lantern.gallery.ShowCoordinator.publishUnclaimed"
+      }
+    },
+    {
+      "id": "mtd:lantern.exhibit.ObjectRegistry.listObjects",
+      "label": "方法",
+      "properties": {
+        "nodeId": "mtd:lantern.exhibit.ObjectRegistry.listObjects",
+        "图谱版本": "lantern-demo-v1",
+        "方法名": "listObjects",
+        "全限定名": "lantern.exhibit.ObjectRegistry.listObjects"
+      }
+    },
+    {
+      "id": "mtd:lantern.exhibit.ObjectRegistry.getDetails",
+      "label": "方法",
+      "properties": {
+        "nodeId": "mtd:lantern.exhibit.ObjectRegistry.getDetails",
+        "图谱版本": "lantern-demo-v1",
+        "方法名": "getDetails",
+        "全限定名": "lantern.exhibit.ObjectRegistry.getDetails"
+      }
+    },
+    {
+      "id": "mtd:lantern.exhibit.ObjectRegistry.checkHold",
+      "label": "方法",
+      "properties": {
+        "nodeId": "mtd:lantern.exhibit.ObjectRegistry.checkHold",
+        "图谱版本": "lantern-demo-v1",
+        "方法名": "checkHold",
+        "全限定名": "lantern.exhibit.ObjectRegistry.checkHold"
+      }
+    },
+    {
+      "id": "mtd:lantern.archive.RecordArchive.getDetails",
+      "label": "方法",
+      "properties": {
+        "nodeId": "mtd:lantern.archive.RecordArchive.getDetails",
+        "图谱版本": "lantern-demo-v1",
+        "方法名": "getDetails",
+        "全限定名": "lantern.archive.RecordArchive.getDetails"
+      }
+    },
+    {
+      "id": "mtd:lantern.archive.RecordArchive.loadRecord",
+      "label": "方法",
+      "properties": {
+        "nodeId": "mtd:lantern.archive.RecordArchive.loadRecord",
+        "图谱版本": "lantern-demo-v1",
+        "方法名": "loadRecord",
+        "全限定名": "lantern.archive.RecordArchive.loadRecord"
+      }
+    },
+    {
+      "id": "mtd:lantern.calendar.VisitCalendar.getWindows",
+      "label": "方法",
+      "properties": {
+        "nodeId": "mtd:lantern.calendar.VisitCalendar.getWindows",
+        "图谱版本": "lantern-demo-v1",
+        "方法名": "getWindows",
+        "全限定名": "lantern.calendar.VisitCalendar.getWindows"
+      }
+    },
+    {
+      "id": "mtd:lantern.calendar.VisitCalendar.registerDate",
+      "label": "方法",
+      "properties": {
+        "nodeId": "mtd:lantern.calendar.VisitCalendar.registerDate",
+        "图谱版本": "lantern-demo-v1",
+        "方法名": "registerDate",
+        "全限定名": "lantern.calendar.VisitCalendar.registerDate"
+      }
+    },
+    {
+      "id": "mtd:lantern.notice.DispatchInbox.deliverOpening",
+      "label": "方法",
+      "properties": {
+        "nodeId": "mtd:lantern.notice.DispatchInbox.deliverOpening",
+        "图谱版本": "lantern-demo-v1",
+        "方法名": "deliverOpening",
+        "全限定名": "lantern.notice.DispatchInbox.deliverOpening"
+      }
+    },
+    {
+      "id": "mtd:lantern.notice.DispatchInbox.emitReceipt",
+      "label": "方法",
+      "properties": {
+        "nodeId": "mtd:lantern.notice.DispatchInbox.emitReceipt",
+        "图谱版本": "lantern-demo-v1",
+        "方法名": "emitReceipt",
+        "全限定名": "lantern.notice.DispatchInbox.emitReceipt"
+      }
+    },
+    {
+      "id": "mtd:lantern.audit.AuditLedger.storeTrail",
+      "label": "方法",
+      "properties": {
+        "nodeId": "mtd:lantern.audit.AuditLedger.storeTrail",
+        "图谱版本": "lantern-demo-v1",
+        "方法名": "storeTrail",
+        "全限定名": "lantern.audit.AuditLedger.storeTrail"
+      }
+    },
+    {
+      "id": "mtd:lantern.ops.CacheMaintainer.warmCache",
+      "label": "方法",
+      "properties": {
+        "nodeId": "mtd:lantern.ops.CacheMaintainer.warmCache",
+        "图谱版本": "lantern-demo-v1",
+        "方法名": "warmCache",
+        "全限定名": "lantern.ops.CacheMaintainer.warmCache"
+      }
+    },
+    {
+      "id": "mtd:lantern.ops.CacheMaintainer.rebuildIndex",
+      "label": "方法",
+      "properties": {
+        "nodeId": "mtd:lantern.ops.CacheMaintainer.rebuildIndex",
+        "图谱版本": "lantern-demo-v1",
+        "方法名": "rebuildIndex",
+        "全限定名": "lantern.ops.CacheMaintainer.rebuildIndex"
+      }
+    },
+    {
+      "id": "mtd:lantern.docs.HelpIndex.snapshotHelp",
+      "label": "方法",
+      "properties": {
+        "nodeId": "mtd:lantern.docs.HelpIndex.snapshotHelp",
+        "图谱版本": "lantern-demo-v1",
+        "方法名": "snapshotHelp",
+        "全限定名": "lantern.docs.HelpIndex.snapshotHelp"
+      }
+    },
+    {
+      "id": "mtd:lantern.docs.HelpIndex.lookupHelp",
+      "label": "方法",
+      "properties": {
+        "nodeId": "mtd:lantern.docs.HelpIndex.lookupHelp",
+        "图谱版本": "lantern-demo-v1",
+        "方法名": "lookupHelp",
+        "全限定名": "lantern.docs.HelpIndex.lookupHelp"
+      }
+    },
+    {
+      "id": "uapi:POST:/lantern/gallery/shows",
+      "label": "上游API",
+      "properties": {
+        "nodeId": "uapi:POST:/lantern/gallery/shows",
+        "图谱版本": "lantern-demo-v1",
+        "API路径": "/lantern/gallery/shows",
+        "HTTP方法": "POST"
+      }
+    },
+    {
+      "id": "uapi:GET:/lantern/exhibits/objects",
+      "label": "上游API",
+      "properties": {
+        "nodeId": "uapi:GET:/lantern/exhibits/objects",
+        "图谱版本": "lantern-demo-v1",
+        "API路径": "/lantern/exhibits/objects",
+        "HTTP方法": "GET"
+      }
+    },
+    {
+      "id": "uapi:GET:/lantern/archive/records/{recordId}",
+      "label": "上游API",
+      "properties": {
+        "nodeId": "uapi:GET:/lantern/archive/records/{recordId}",
+        "图谱版本": "lantern-demo-v1",
+        "API路径": "/lantern/archive/records/{recordId}",
+        "HTTP方法": "GET"
+      }
+    },
+    {
+      "id": "uapi:GET:/lantern/calendar/windows",
+      "label": "上游API",
+      "properties": {
+        "nodeId": "uapi:GET:/lantern/calendar/windows",
+        "图谱版本": "lantern-demo-v1",
+        "API路径": "/lantern/calendar/windows",
+        "HTTP方法": "GET"
+      }
+    },
+    {
+      "id": "uapi:POST:/lantern/calendar/dates",
+      "label": "上游API",
+      "properties": {
+        "nodeId": "uapi:POST:/lantern/calendar/dates",
+        "图谱版本": "lantern-demo-v1",
+        "API路径": "/lantern/calendar/dates",
+        "HTTP方法": "POST"
+      }
+    },
+    {
+      "id": "uapi:GET:/lantern/docs/help/{slug}",
+      "label": "上游API",
+      "properties": {
+        "nodeId": "uapi:GET:/lantern/docs/help/{slug}",
+        "图谱版本": "lantern-demo-v1",
+        "API路径": "/lantern/docs/help/{slug}",
+        "HTTP方法": "GET"
+      }
+    },
+    {
+      "id": "uapi:POST:/lantern/docs/snapshots",
+      "label": "上游API",
+      "properties": {
+        "nodeId": "uapi:POST:/lantern/docs/snapshots",
+        "图谱版本": "lantern-demo-v1",
+        "API路径": "/lantern/docs/snapshots",
+        "HTTP方法": "POST"
+      }
+    },
+    {
+      "id": "dapi:show-exhibits",
+      "label": "下游API",
+      "properties": {
+        "nodeId": "dapi:show-exhibits",
+        "图谱版本": "lantern-demo-v1",
+        "API路径": "/lantern/exhibits/objects",
+        "HTTP方法": "GET"
+      }
+    },
+    {
+      "id": "dapi:show-windows",
+      "label": "下游API",
+      "properties": {
+        "nodeId": "dapi:show-windows",
+        "图谱版本": "lantern-demo-v1",
+        "API路径": "/lantern/calendar/windows",
+        "HTTP方法": "GET"
+      }
+    },
+    {
+      "id": "dapi:object-record",
+      "label": "下游API",
+      "properties": {
+        "nodeId": "dapi:object-record",
+        "图谱版本": "lantern-demo-v1",
+        "API路径": "/lantern/archive/records/{recordId}",
+        "HTTP方法": "GET"
+      }
+    },
+    {
+      "id": "dapi:help-index",
+      "label": "下游API",
+      "properties": {
+        "nodeId": "dapi:help-index",
+        "图谱版本": "lantern-demo-v1",
+        "API路径": "/lantern/docs/help/{slug}",
+        "HTTP方法": "GET"
+      }
+    },
+    {
+      "id": "exchange:lantern.events",
+      "label": "消息交换机",
+      "properties": {
+        "nodeId": "exchange:lantern.events",
+        "图谱版本": "lantern-demo-v1",
+        "交换机名称": "lantern.events"
+      }
+    },
+    {
+      "id": "queue:lantern_opening",
+      "label": "消息队列",
+      "properties": {
+        "nodeId": "queue:lantern_opening",
+        "图谱版本": "lantern-demo-v1",
+        "队列名称": "lantern_opening",
+        "所属服务名": "ts-lantern-notice-service"
+      }
+    },
+    {
+      "id": "queue:lantern_audit",
+      "label": "消息队列",
+      "properties": {
+        "nodeId": "queue:lantern_audit",
+        "图谱版本": "lantern-demo-v1",
+        "队列名称": "lantern_audit",
+        "所属服务名": "ts-lantern-audit-service"
+      }
+    },
+    {
+      "id": "queue:lantern_orphan",
+      "label": "消息队列",
+      "properties": {
+        "nodeId": "queue:lantern_orphan",
+        "图谱版本": "lantern-demo-v1",
+        "队列名称": "lantern_orphan",
+        "所属服务名": "ts-lantern-audit-service"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "cls:lantern.gallery.ShowCoordinator",
+      "target": "svc:ts-lantern-gallery-service",
+      "type": "归属于",
+      "properties": {}
+    },
+    {
+      "source": "cls:lantern.exhibit.ObjectRegistry",
+      "target": "svc:ts-lantern-exhibit-service",
+      "type": "归属于",
+      "properties": {}
+    },
+    {
+      "source": "cls:lantern.archive.RecordArchive",
+      "target": "svc:ts-lantern-archive-service",
+      "type": "归属于",
+      "properties": {}
+    },
+    {
+      "source": "cls:lantern.calendar.VisitCalendar",
+      "target": "svc:ts-lantern-calendar-service",
+      "type": "归属于",
+      "properties": {}
+    },
+    {
+      "source": "cls:lantern.notice.DispatchInbox",
+      "target": "svc:ts-lantern-notice-service",
+      "type": "归属于",
+      "properties": {}
+    },
+    {
+      "source": "cls:lantern.audit.AuditLedger",
+      "target": "svc:ts-lantern-audit-service",
+      "type": "归属于",
+      "properties": {}
+    },
+    {
+      "source": "cls:lantern.ops.CacheMaintainer",
+      "target": "svc:ts-lantern-ops-service",
+      "type": "归属于",
+      "properties": {}
+    },
+    {
+      "source": "cls:lantern.docs.HelpIndex",
+      "target": "svc:ts-lantern-docs-service",
+      "type": "归属于",
+      "properties": {}
+    },
+    {
+      "source": "mtd:lantern.gallery.ShowCoordinator.openShow",
+      "target": "cls:lantern.gallery.ShowCoordinator",
+      "type": "归属于",
+      "properties": {}
+    },
+    {
+      "source": "mtd:lantern.gallery.ShowCoordinator.publishOpening",
+      "target": "cls:lantern.gallery.ShowCoordinator",
+      "type": "归属于",
+      "properties": {}
+    },
+    {
+      "source": "mtd:lantern.gallery.ShowCoordinator.emitAudit",
+      "target": "cls:lantern.gallery.ShowCoordinator",
+      "type": "归属于",
+      "properties": {}
+    },
+    {
+      "source": "mtd:lantern.gallery.ShowCoordinator.stalePublish",
+      "target": "cls:lantern.gallery.ShowCoordinator",
+      "type": "归属于",
+      "properties": {}
+    },
+    {
+      "source": "mtd:lantern.gallery.ShowCoordinator.publishUnclaimed",
+      "target": "cls:lantern.gallery.ShowCoordinator",
+      "type": "归属于",
+      "properties": {}
+    },
+    {
+      "source": "mtd:lantern.exhibit.ObjectRegistry.listObjects",
+      "target": "cls:lantern.exhibit.ObjectRegistry",
+      "type": "归属于",
+      "properties": {}
+    },
+    {
+      "source": "mtd:lantern.exhibit.ObjectRegistry.getDetails",
+      "target": "cls:lantern.exhibit.ObjectRegistry",
+      "type": "归属于",
+      "properties": {}
+    },
+    {
+      "source": "mtd:lantern.exhibit.ObjectRegistry.checkHold",
+      "target": "cls:lantern.exhibit.ObjectRegistry",
+      "type": "归属于",
+      "properties": {}
+    },
+    {
+      "source": "mtd:lantern.archive.RecordArchive.getDetails",
+      "target": "cls:lantern.archive.RecordArchive",
+      "type": "归属于",
+      "properties": {}
+    },
+    {
+      "source": "mtd:lantern.archive.RecordArchive.loadRecord",
+      "target": "cls:lantern.archive.RecordArchive",
+      "type": "归属于",
+      "properties": {}
+    },
+    {
+      "source": "mtd:lantern.calendar.VisitCalendar.getWindows",
+      "target": "cls:lantern.calendar.VisitCalendar",
+      "type": "归属于",
+      "properties": {}
+    },
+    {
+      "source": "mtd:lantern.calendar.VisitCalendar.registerDate",
+      "target": "cls:lantern.calendar.VisitCalendar",
+      "type": "归属于",
+      "properties": {}
+    },
+    {
+      "source": "mtd:lantern.notice.DispatchInbox.deliverOpening",
+      "target": "cls:lantern.notice.DispatchInbox",
+      "type": "归属于",
+      "properties": {}
+    },
+    {
+      "source": "mtd:lantern.notice.DispatchInbox.emitReceipt",
+      "target": "cls:lantern.notice.DispatchInbox",
+      "type": "归属于",
+      "properties": {}
+    },
+    {
+      "source": "mtd:lantern.audit.AuditLedger.storeTrail",
+      "target": "cls:lantern.audit.AuditLedger",
+      "type": "归属于",
+      "properties": {}
+    },
+    {
+      "source": "mtd:lantern.ops.CacheMaintainer.warmCache",
+      "target": "cls:lantern.ops.CacheMaintainer",
+      "type": "归属于",
+      "properties": {}
+    },
+    {
+      "source": "mtd:lantern.ops.CacheMaintainer.rebuildIndex",
+      "target": "cls:lantern.ops.CacheMaintainer",
+      "type": "归属于",
+      "properties": {}
+    },
+    {
+      "source": "mtd:lantern.docs.HelpIndex.snapshotHelp",
+      "target": "cls:lantern.docs.HelpIndex",
+      "type": "归属于",
+      "properties": {}
+    },
+    {
+      "source": "mtd:lantern.docs.HelpIndex.lookupHelp",
+      "target": "cls:lantern.docs.HelpIndex",
+      "type": "归属于",
+      "properties": {}
+    },
+    {
+      "source": "uapi:POST:/lantern/gallery/shows",
+      "target": "mtd:lantern.gallery.ShowCoordinator.openShow",
+      "type": "归属于",
+      "properties": {}
+    },
+    {
+      "source": "uapi:GET:/lantern/exhibits/objects",
+      "target": "mtd:lantern.exhibit.ObjectRegistry.listObjects",
+      "type": "归属于",
+      "properties": {}
+    },
+    {
+      "source": "uapi:GET:/lantern/archive/records/{recordId}",
+      "target": "mtd:lantern.archive.RecordArchive.loadRecord",
+      "type": "归属于",
+      "properties": {}
+    },
+    {
+      "source": "uapi:GET:/lantern/calendar/windows",
+      "target": "mtd:lantern.calendar.VisitCalendar.getWindows",
+      "type": "归属于",
+      "properties": {}
+    },
+    {
+      "source": "uapi:POST:/lantern/calendar/dates",
+      "target": "mtd:lantern.calendar.VisitCalendar.registerDate",
+      "type": "归属于",
+      "properties": {}
+    },
+    {
+      "source": "uapi:GET:/lantern/docs/help/{slug}",
+      "target": "mtd:lantern.docs.HelpIndex.lookupHelp",
+      "type": "归属于",
+      "properties": {}
+    },
+    {
+      "source": "uapi:POST:/lantern/docs/snapshots",
+      "target": "mtd:lantern.docs.HelpIndex.snapshotHelp",
+      "type": "归属于",
+      "properties": {}
+    },
+    {
+      "source": "mtd:lantern.gallery.ShowCoordinator.openShow",
+      "target": "dapi:show-exhibits",
+      "type": "下游调用",
+      "properties": {}
+    },
+    {
+      "source": "dapi:show-exhibits",
+      "target": "svc:ts-lantern-exhibit-service",
+      "type": "目标服务",
+      "properties": {}
+    },
+    {
+      "source": "dapi:show-exhibits",
+      "target": "uapi:GET:/lantern/exhibits/objects",
+      "type": "外部调用",
+      "properties": {}
+    },
+    {
+      "source": "mtd:lantern.gallery.ShowCoordinator.openShow",
+      "target": "dapi:show-windows",
+      "type": "下游调用",
+      "properties": {}
+    },
+    {
+      "source": "dapi:show-windows",
+      "target": "svc:ts-lantern-calendar-service",
+      "type": "目标服务",
+      "properties": {}
+    },
+    {
+      "source": "dapi:show-windows",
+      "target": "uapi:GET:/lantern/calendar/windows",
+      "type": "外部调用",
+      "properties": {}
+    },
+    {
+      "source": "mtd:lantern.exhibit.ObjectRegistry.listObjects",
+      "target": "dapi:object-record",
+      "type": "下游调用",
+      "properties": {}
+    },
+    {
+      "source": "dapi:object-record",
+      "target": "svc:ts-lantern-archive-service",
+      "type": "目标服务",
+      "properties": {}
+    },
+    {
+      "source": "dapi:object-record",
+      "target": "uapi:GET:/lantern/archive/records/{recordId}",
+      "type": "外部调用",
+      "properties": {}
+    },
+    {
+      "source": "mtd:lantern.ops.CacheMaintainer.rebuildIndex",
+      "target": "dapi:help-index",
+      "type": "下游调用",
+      "properties": {}
+    },
+    {
+      "source": "dapi:help-index",
+      "target": "svc:ts-lantern-docs-service",
+      "type": "目标服务",
+      "properties": {}
+    },
+    {
+      "source": "dapi:help-index",
+      "target": "uapi:GET:/lantern/docs/help/{slug}",
+      "type": "外部调用",
+      "properties": {}
+    },
+    {
+      "source": "mtd:lantern.gallery.ShowCoordinator.openShow",
+      "target": "dapi:show-exhibits",
+      "type": "下游调用",
+      "properties": {}
+    },
+    {
+      "source": "mtd:lantern.gallery.ShowCoordinator.openShow",
+      "target": "mtd:lantern.exhibit.ObjectRegistry.listObjects",
+      "type": "调用",
+      "properties": {}
+    },
+    {
+      "source": "mtd:lantern.gallery.ShowCoordinator.openShow",
+      "target": "mtd:lantern.calendar.VisitCalendar.getWindows",
+      "type": "接口调用",
+      "properties": {}
+    },
+    {
+      "source": "mtd:lantern.gallery.ShowCoordinator.openShow",
+      "target": "mtd:lantern.gallery.ShowCoordinator.publishOpening",
+      "type": "调用",
+      "properties": {}
+    },
+    {
+      "source": "mtd:lantern.exhibit.ObjectRegistry.listObjects",
+      "target": "mtd:lantern.archive.RecordArchive.loadRecord",
+      "type": "调用",
+      "properties": {}
+    },
+    {
+      "source": "mtd:lantern.exhibit.ObjectRegistry.getDetails",
+      "target": "mtd:lantern.exhibit.ObjectRegistry.checkHold",
+      "type": "调用",
+      "properties": {}
+    },
+    {
+      "source": "mtd:lantern.archive.RecordArchive.getDetails",
+      "target": "mtd:lantern.archive.RecordArchive.loadRecord",
+      "type": "调用",
+      "properties": {}
+    },
+    {
+      "source": "mtd:lantern.notice.DispatchInbox.deliverOpening",
+      "target": "mtd:lantern.notice.DispatchInbox.emitReceipt",
+      "type": "调用",
+      "properties": {}
+    },
+    {
+      "source": "mtd:lantern.ops.CacheMaintainer.warmCache",
+      "target": "mtd:lantern.ops.CacheMaintainer.rebuildIndex",
+      "type": "调用",
+      "properties": {}
+    },
+    {
+      "source": "mtd:lantern.docs.HelpIndex.lookupHelp",
+      "target": "mtd:lantern.docs.HelpIndex.snapshotHelp",
+      "type": "调用",
+      "properties": {}
+    },
+    {
+      "source": "mtd:lantern.gallery.ShowCoordinator.publishOpening",
+      "target": "exchange:lantern.events",
+      "type": "发布至",
+      "properties": {
+        "路由键": "opening.ready"
+      }
+    },
+    {
+      "source": "mtd:lantern.gallery.ShowCoordinator.stalePublish",
+      "target": "exchange:lantern.events",
+      "type": "发布至",
+      "properties": {
+        "路由键": "opening.stale"
+      }
+    },
+    {
+      "source": "mtd:lantern.gallery.ShowCoordinator.emitAudit",
+      "target": "exchange:lantern.events",
+      "type": "发布至",
+      "properties": {
+        "路由键": "audit.recorded"
+      }
+    },
+    {
+      "source": "mtd:lantern.gallery.ShowCoordinator.publishUnclaimed",
+      "target": "exchange:lantern.events",
+      "type": "发布至",
+      "properties": {
+        "路由键": "orphan.created"
+      }
+    },
+    {
+      "source": "mtd:lantern.notice.DispatchInbox.emitReceipt",
+      "target": "exchange:lantern.events",
+      "type": "发布至",
+      "properties": {
+        "路由键": "audit.recorded"
+      }
+    },
+    {
+      "source": "exchange:lantern.events",
+      "target": "queue:lantern_opening",
+      "type": "路由至",
+      "properties": {
+        "路由键": "opening.ready"
+      }
+    },
+    {
+      "source": "exchange:lantern.events",
+      "target": "queue:lantern_audit",
+      "type": "路由至",
+      "properties": {
+        "路由键": "audit.recorded"
+      }
+    },
+    {
+      "source": "exchange:lantern.events",
+      "target": "queue:lantern_orphan",
+      "type": "路由至",
+      "properties": {
+        "路由键": "orphan.created"
+      }
+    },
+    {
+      "source": "queue:lantern_opening",
+      "target": "mtd:lantern.notice.DispatchInbox.deliverOpening",
+      "type": "消费自",
+      "properties": {}
+    },
+    {
+      "source": "queue:lantern_audit",
+      "target": "mtd:lantern.audit.AuditLedger.storeTrail",
+      "type": "消费自",
+      "properties": {}
+    },
+    {
+      "source": "svc:ts-lantern-gallery-service",
+      "target": "svc:ts-lantern-notice-service",
+      "type": "消息依赖",
+      "properties": {}
+    },
+    {
+      "source": "svc:ts-lantern-gallery-service",
+      "target": "svc:ts-lantern-audit-service",
+      "type": "消息依赖",
+      "properties": {}
+    },
+    {
+      "source": "svc:ts-lantern-notice-service",
+      "target": "svc:ts-lantern-audit-service",
+      "type": "消息依赖",
+      "properties": {}
+    }
+  ],
+  "items": [
+    {
+      "id": "S01",
+      "level": "简单",
+      "question": "这个灯塔展馆图谱收录了多少个微服务节点？返回数量。",
+      "reference_cypher": "MATCH (s:微服务) RETURN count(s) AS 数量",
+      "columns": [
+        {
+          "name": "数量",
+          "aliases": [
+            "count",
+            "total",
+            "节点数",
+            "总数"
+          ]
+        }
+      ],
+      "expected_rows": [
+        {
+          "数量": 8
+        }
+      ]
+    },
+    {
+      "id": "S02",
+      "level": "简单",
+      "question": "在本图中，ts-lantern-gallery-service 的节点 ID 是多少？只返回节点ID。",
+      "reference_cypher": "MATCH (s:微服务) WHERE s.服务名称='ts-lantern-gallery-service' RETURN s.nodeId AS 节点ID",
+      "columns": [
+        {
+          "name": "节点ID",
+          "aliases": [
+            "nodeId",
+            "node_id",
+            "id",
+            "服务ID"
+          ]
+        }
+      ],
+      "expected_rows": [
+        {
+          "节点ID": "svc:ts-lantern-gallery-service"
+        }
+      ]
+    },
+    {
+      "id": "S03",
+      "level": "简单",
+      "question": "简单类名 ShowCoordinator 的 Java 类全名是什么？返回全限定名。",
+      "reference_cypher": "MATCH (c:类) WHERE c.简单名='ShowCoordinator' RETURN c.全限定名 AS 全限定名",
+      "columns": [
+        {
+          "name": "全限定名",
+          "aliases": [
+            "qualifiedName",
+            "full_name",
+            "方法全限定名",
+            "类全限定名"
+          ]
+        }
+      ],
+      "expected_rows": [
+        {
+          "全限定名": "lantern.gallery.ShowCoordinator"
+        }
+      ]
+    },
+    {
+      "id": "S04",
+      "level": "简单",
+      "question": "列出数据库中所有消息队列的名称，结果列叫队列。",
+      "reference_cypher": "MATCH (q:消息队列) RETURN DISTINCT q.队列名称 AS 队列",
+      "columns": [
+        {
+          "name": "队列",
+          "aliases": [
+            "queue",
+            "队列名称",
+            "消息队列"
+          ]
+        }
+      ],
+      "expected_rows": [
+        {
+          "队列": "lantern_opening"
+        },
+        {
+          "队列": "lantern_audit"
+        },
+        {
+          "队列": "lantern_orphan"
+        }
+      ]
+    },
+    {
+      "id": "S05",
+      "level": "简单",
+      "question": "方法名恰好为 getDetails 的方法有几个？会出现同名方法，返回数量。",
+      "reference_cypher": "MATCH (m:方法) WHERE m.方法名='getDetails' RETURN count(m) AS 数量",
+      "columns": [
+        {
+          "name": "数量",
+          "aliases": [
+            "count",
+            "total",
+            "节点数",
+            "总数"
+          ]
+        }
+      ],
+      "expected_rows": [
+        {
+          "数量": 2
+        }
+      ]
+    },
+    {
+      "id": "S06",
+      "level": "简单",
+      "question": "ts-lantern-calendar-service 归属的类叫什么？列出每个类的全限定名。",
+      "reference_cypher": "MATCH (c:类)-[:归属于]->(s:微服务) WHERE s.服务名称='ts-lantern-calendar-service' RETURN DISTINCT c.全限定名 AS 全限定名",
+      "columns": [
+        {
+          "name": "全限定名",
+          "aliases": [
+            "qualifiedName",
+            "full_name",
+            "方法全限定名",
+            "类全限定名"
+          ]
+        }
+      ],
+      "expected_rows": [
+        {
+          "全限定名": "lantern.calendar.VisitCalendar"
+        }
+      ]
+    },
+    {
+      "id": "S07",
+      "level": "简单",
+      "question": "GET /lantern/calendar/windows 在图里是不是实际存在的入口？返回入口节点数量。",
+      "reference_cypher": "MATCH (a:上游API) WHERE a.API路径='/lantern/calendar/windows' AND a.HTTP方法='GET' RETURN count(a) AS 数量",
+      "columns": [
+        {
+          "name": "数量",
+          "aliases": [
+            "count",
+            "total",
+            "节点数",
+            "总数"
+          ]
+        }
+      ],
+      "expected_rows": [
+        {
+          "数量": 1
+        }
+      ]
+    },
+    {
+      "id": "S08",
+      "level": "简单",
+      "question": "消息队列 lantern_orphan 记录的归属服务叫什么？返回服务名。",
+      "reference_cypher": "MATCH (q:消息队列) WHERE q.队列名称='lantern_orphan' RETURN q.所属服务名 AS 服务",
+      "columns": [
+        {
+          "name": "服务",
+          "aliases": [
+            "service",
+            "服务名称",
+            "服务名",
+            "微服务"
+          ]
+        }
+      ],
+      "expected_rows": [
+        {
+          "服务": "ts-lantern-audit-service"
+        }
+      ]
+    },
+    {
+      "id": "S09",
+      "level": "简单",
+      "question": "图谱里消息交换机的名称是什么？只返回交换机名称。",
+      "reference_cypher": "MATCH (e:消息交换机) RETURN DISTINCT e.交换机名称 AS 交换机",
+      "columns": [
+        {
+          "name": "交换机",
+          "aliases": [
+            "exchange",
+            "交换机名称",
+            "消息交换机"
+          ]
+        }
+      ],
+      "expected_rows": [
+        {
+          "交换机": "lantern.events"
+        }
+      ]
+    },
+    {
+      "id": "S10",
+      "level": "简单",
+      "question": "此图记录了多少个名为 resetExhibit 的方法节点？返回数量。",
+      "reference_cypher": "MATCH (m:方法) WHERE m.方法名='resetExhibit' RETURN count(m) AS 数量",
+      "columns": [
+        {
+          "name": "数量",
+          "aliases": [
+            "count",
+            "total",
+            "节点数",
+            "总数"
+          ]
+        }
+      ],
+      "expected_rows": [
+        {
+          "数量": 0
+        }
+      ]
+    },
+    {
+      "id": "M01",
+      "level": "中等",
+      "question": "openShow 在上游图谱里通过哪些 HTTP 入口被调用？结果只列入口路径。",
+      "reference_cypher": "MATCH (a:上游API)-[:归属于]->(m:方法) WHERE m.方法名='openShow' RETURN DISTINCT a.API路径 AS 路径",
+      "columns": [
+        {
+          "name": "路径",
+          "aliases": [
+            "path",
+            "API路径",
+            "入口路径",
+            "下游路径",
+            "api_path"
+          ]
+        }
+      ],
+      "expected_rows": [
+        {
+          "路径": "/lantern/gallery/shows"
+        }
+      ]
+    },
+    {
+      "id": "M02",
+      "level": "中等",
+      "question": "openShow 直接发出的 REST 请求到达哪些目标服务？重复调用点只计一次，返回目标服务名。",
+      "reference_cypher": "MATCH (m:方法)-[:下游调用]->(:下游API)-[:目标服务]->(s:微服务) WHERE m.方法名='openShow' RETURN DISTINCT s.服务名称 AS 目标服务",
+      "columns": [
+        {
+          "name": "目标服务",
+          "aliases": [
+            "target",
+            "target_service",
+            "下游服务",
+            "服务名称"
+          ]
+        }
+      ],
+      "expected_rows": [
+        {
+          "目标服务": "ts-lantern-exhibit-service"
+        },
+        {
+          "目标服务": "ts-lantern-calendar-service"
+        }
+      ]
+    },
+    {
+      "id": "M03",
+      "level": "中等",
+      "question": "哪些服务发起了直达 ts-lantern-archive-service 的 REST 请求？返回来源服务名。",
+      "reference_cypher": "MATCH (s:微服务)<-[:归属于]-(:类)<-[:归属于]-(m:方法)-[:下游调用]->(:下游API)-[:目标服务]->(t:微服务) WHERE t.服务名称='ts-lantern-archive-service' RETURN DISTINCT s.服务名称 AS 来源服务",
+      "columns": [
+        {
+          "name": "来源服务",
+          "aliases": [
+            "source",
+            "source_service",
+            "调用方",
+            "上游服务"
+          ]
+        }
+      ],
+      "expected_rows": [
+        {
+          "来源服务": "ts-lantern-exhibit-service"
+        }
+      ]
+    },
+    {
+      "id": "M04",
+      "level": "中等",
+      "question": "列出所有直调 loadRecord 的方法全限定名。这里的直调只指调用或接口调用关系。",
+      "reference_cypher": "MATCH (m:方法)-[:调用|接口调用]->(t:方法) WHERE t.方法名='loadRecord' RETURN DISTINCT m.全限定名 AS 全限定名",
+      "columns": [
+        {
+          "name": "全限定名",
+          "aliases": [
+            "qualifiedName",
+            "full_name",
+            "方法全限定名",
+            "类全限定名"
+          ]
+        }
+      ],
+      "expected_rows": [
+        {
+          "全限定名": "lantern.exhibit.ObjectRegistry.listObjects"
+        },
+        {
+          "全限定名": "lantern.archive.RecordArchive.getDetails"
+        }
+      ]
+    },
+    {
+      "id": "M05",
+      "level": "中等",
+      "question": "ts-lantern-exhibit-service 下包含哪些方法？按方法名去重后列出方法名。",
+      "reference_cypher": "MATCH (m:方法)-[:归属于]->(:类)-[:归属于]->(s:微服务) WHERE s.服务名称='ts-lantern-exhibit-service' RETURN DISTINCT m.方法名 AS 方法",
+      "columns": [
+        {
+          "name": "方法",
+          "aliases": [
+            "method",
+            "方法名",
+            "方法名称"
+          ]
+        }
+      ],
+      "expected_rows": [
+        {
+          "方法": "listObjects"
+        },
+        {
+          "方法": "getDetails"
+        },
+        {
+          "方法": "checkHold"
+        }
+      ]
+    },
+    {
+      "id": "M06",
+      "level": "中等",
+      "question": "列出 ts-lantern-calendar-service 对外提供的入口 API 路径。只返回路径。",
+      "reference_cypher": "MATCH (a:上游API)-[:归属于]->(:方法)-[:归属于]->(:类)-[:归属于]->(s:微服务) WHERE s.服务名称='ts-lantern-calendar-service' RETURN DISTINCT a.API路径 AS 路径",
+      "columns": [
+        {
+          "name": "路径",
+          "aliases": [
+            "path",
+            "API路径",
+            "入口路径",
+            "下游路径",
+            "api_path"
+          ]
+        }
+      ],
+      "expected_rows": [
+        {
+          "路径": "/lantern/calendar/windows"
+        },
+        {
+          "路径": "/lantern/calendar/dates"
+        }
+      ]
+    },
+    {
+      "id": "M07",
+      "level": "中等",
+      "question": "openShow 的下游请求映射到哪些入口？每行返回下游路径、入口路径、入口归属服务三列。",
+      "reference_cypher": "MATCH (m:方法)-[:下游调用]->(d:下游API)-[:外部调用]->(a:上游API)-[:归属于]->(:方法)-[:归属于]->(:类)-[:归属于]->(s:微服务) WHERE m.方法名='openShow' RETURN DISTINCT d.API路径 AS 下游路径, a.API路径 AS 入口路径, s.服务名称 AS 归属服务",
+      "columns": [
+        {
+          "name": "下游路径",
+          "aliases": [
+            "outbound_path",
+            "下游API",
+            "出站路径",
+            "下游API路径"
+          ]
+        },
+        {
+          "name": "入口路径",
+          "aliases": [
+            "entry",
+            "entry_path",
+            "路径",
+            "入口API"
+          ]
+        },
+        {
+          "name": "归属服务",
+          "aliases": [
+            "owner",
+            "owning_service",
+            "所属服务",
+            "目标服务"
+          ]
+        }
+      ],
+      "expected_rows": [
+        {
+          "下游路径": "/lantern/exhibits/objects",
+          "入口路径": "/lantern/exhibits/objects",
+          "归属服务": "ts-lantern-exhibit-service"
+        },
+        {
+          "下游路径": "/lantern/calendar/windows",
+          "入口路径": "/lantern/calendar/windows",
+          "归属服务": "ts-lantern-calendar-service"
+        }
+      ]
+    },
+    {
+      "id": "M08",
+      "level": "中等",
+      "question": "lantern.events 交换机绑定了哪些队列？每行返回队列名和路由键。",
+      "reference_cypher": "MATCH (e:消息交换机)-[r:路由至]->(q:消息队列) WHERE e.交换机名称='lantern.events' RETURN DISTINCT q.队列名称 AS 队列, r.路由键 AS 路由键",
+      "columns": [
+        {
+          "name": "队列",
+          "aliases": [
+            "queue",
+            "队列名称",
+            "消息队列"
+          ]
+        },
+        {
+          "name": "路由键",
+          "aliases": [
+            "routing_key",
+            "routingKey",
+            "绑定键"
+          ]
+        }
+      ],
+      "expected_rows": [
+        {
+          "队列": "lantern_opening",
+          "路由键": "opening.ready"
+        },
+        {
+          "队列": "lantern_audit",
+          "路由键": "audit.recorded"
+        },
+        {
+          "队列": "lantern_orphan",
+          "路由键": "orphan.created"
+        }
+      ]
+    },
+    {
+      "id": "M09",
+      "level": "中等",
+      "question": "lantern_opening 队列由哪些方法消费？返回消费者方法的全限定名。",
+      "reference_cypher": "MATCH (q:消息队列)-[:消费自]->(c:方法) WHERE q.队列名称='lantern_opening' RETURN DISTINCT c.全限定名 AS 全限定名",
+      "columns": [
+        {
+          "name": "全限定名",
+          "aliases": [
+            "qualifiedName",
+            "full_name",
+            "方法全限定名",
+            "类全限定名"
+          ]
+        }
+      ],
+      "expected_rows": [
+        {
+          "全限定名": "lantern.notice.DispatchInbox.deliverOpening"
+        }
+      ]
+    },
+    {
+      "id": "M10",
+      "level": "中等",
+      "question": "图上显式标注的 ts-lantern-notice-service 的服务级消息依赖指向谁？只返回目标服务。",
+      "reference_cypher": "MATCH (s:微服务)-[:消息依赖]->(t:微服务) WHERE s.服务名称='ts-lantern-notice-service' RETURN DISTINCT t.服务名称 AS 目标服务",
+      "columns": [
+        {
+          "name": "目标服务",
+          "aliases": [
+            "target",
+            "target_service",
+            "下游服务",
+            "服务名称"
+          ]
+        }
+      ],
+      "expected_rows": [
+        {
+          "目标服务": "ts-lantern-audit-service"
+        }
+      ]
+    },
+    {
+      "id": "M11",
+      "level": "中等",
+      "question": "getDetails 有重名。任选不了：每条都返回方法全限定名和它归属的服务名。",
+      "reference_cypher": "MATCH (m:方法)-[:归属于]->(:类)-[:归属于]->(s:微服务) WHERE m.方法名='getDetails' RETURN DISTINCT m.全限定名 AS 全限定名, s.服务名称 AS 服务",
+      "columns": [
+        {
+          "name": "全限定名",
+          "aliases": [
+            "qualifiedName",
+            "full_name",
+            "方法全限定名",
+            "类全限定名"
+          ]
+        },
+        {
+          "name": "服务",
+          "aliases": [
+            "service",
+            "服务名称",
+            "服务名",
+            "微服务"
+          ]
+        }
+      ],
+      "expected_rows": [
+        {
+          "全限定名": "lantern.exhibit.ObjectRegistry.getDetails",
+          "服务": "ts-lantern-exhibit-service"
+        },
+        {
+          "全限定名": "lantern.archive.RecordArchive.getDetails",
+          "服务": "ts-lantern-archive-service"
+        }
+      ]
+    },
+    {
+      "id": "M12",
+      "level": "中等",
+      "question": "loadRecord 是否直接通过 REST 调用别的服务？列出目标服务名，没有就返回空。",
+      "reference_cypher": "MATCH (m:方法)-[:下游调用]->(:下游API)-[:目标服务]->(s:微服务) WHERE m.方法名='loadRecord' RETURN DISTINCT s.服务名称 AS 目标服务",
+      "columns": [
+        {
+          "name": "目标服务",
+          "aliases": [
+            "target",
+            "target_service",
+            "下游服务",
+            "服务名称"
+          ]
+        }
+      ],
+      "expected_rows": [],
+      "expect_empty": true
+    },
+    {
+      "id": "H01",
+      "level": "困难",
+      "question": "从 openShow 出发，沿调用或接口调用关系最多两跳，哪些方法可达？返回可达方法全限定名，不含自身。",
+      "reference_cypher": "MATCH (m:方法)-[:调用|接口调用*1..2]->(t:方法) WHERE m.方法名='openShow' AND t<>m RETURN DISTINCT t.全限定名 AS 全限定名",
+      "columns": [
+        {
+          "name": "全限定名",
+          "aliases": [
+            "qualifiedName",
+            "full_name",
+            "方法全限定名",
+            "类全限定名"
+          ]
+        }
+      ],
+      "expected_rows": [
+        {
+          "全限定名": "lantern.exhibit.ObjectRegistry.listObjects"
+        },
+        {
+          "全限定名": "lantern.archive.RecordArchive.loadRecord"
+        },
+        {
+          "全限定名": "lantern.calendar.VisitCalendar.getWindows"
+        },
+        {
+          "全限定名": "lantern.gallery.ShowCoordinator.publishOpening"
+        }
+      ]
+    },
+    {
+      "id": "H02",
+      "level": "困难",
+      "question": "若 loadRecord 变更，哪些入口处理方法在一至两跳的调用或接口调用关系后会抵达它？不计直接归属 loadRecord 的入口。返回入口路径和对应的入口处理方法全限定名。",
+      "reference_cypher": "MATCH (a:上游API)-[:归属于]->(source:方法)-[:调用|接口调用*1..2]->(t:方法) WHERE t.方法名='loadRecord' RETURN DISTINCT a.API路径 AS 入口, source.全限定名 AS 调用者",
+      "columns": [
+        {
+          "name": "入口",
+          "aliases": [
+            "entry",
+            "entry_path",
+            "入口路径",
+            "入口API"
+          ]
+        },
+        {
+          "name": "调用者",
+          "aliases": [
+            "caller",
+            "调用方",
+            "调用方法"
+          ]
+        }
+      ],
+      "expected_rows": [
+        {
+          "入口": "/lantern/gallery/shows",
+          "调用者": "lantern.gallery.ShowCoordinator.openShow"
+        },
+        {
+          "入口": "/lantern/exhibits/objects",
+          "调用者": "lantern.exhibit.ObjectRegistry.listObjects"
+        }
+      ]
+    },
+    {
+      "id": "H03",
+      "level": "困难",
+      "question": "列出 lantern_opening 从消息发布到消费的完整链路。每行只给发布者方法全名、交换机名、队列名、消费者方法全名，须实际按同一路由键到达。",
+      "reference_cypher": "MATCH (p:方法)-[u:发布至]->(e:消息交换机)-[r:路由至]->(q:消息队列)-[:消费自]->(c:方法) WHERE q.队列名称='lantern_opening' AND u.路由键 IS NOT NULL AND u.路由键=r.路由键 RETURN DISTINCT p.全限定名 AS 发布者, e.交换机名称 AS 交换机, q.队列名称 AS 队列, c.全限定名 AS 消费者",
+      "columns": [
+        {
+          "name": "发布者",
+          "aliases": [
+            "publisher",
+            "发布方法",
+            "发布方法全限定名"
+          ]
+        },
+        {
+          "name": "交换机",
+          "aliases": [
+            "exchange",
+            "交换机名称",
+            "消息交换机"
+          ]
+        },
+        {
+          "name": "队列",
+          "aliases": [
+            "queue",
+            "队列名称",
+            "消息队列"
+          ]
+        },
+        {
+          "name": "消费者",
+          "aliases": [
+            "consumer",
+            "消费方法",
+            "消费方法全限定名"
+          ]
+        }
+      ],
+      "expected_rows": [
+        {
+          "发布者": "lantern.gallery.ShowCoordinator.publishOpening",
+          "交换机": "lantern.events",
+          "队列": "lantern_opening",
+          "消费者": "lantern.notice.DispatchInbox.deliverOpening"
+        }
+      ]
+    },
+    {
+      "id": "H04",
+      "level": "困难",
+      "question": "哪些方法真的能把消息发送到 lantern_audit 队列？该问题只问发布，不要求消费者。返回发布者方法全名、队列名与实际路由键。",
+      "reference_cypher": "MATCH (p:方法)-[u:发布至]->(:消息交换机)-[r:路由至]->(q:消息队列) WHERE q.队列名称='lantern_audit' AND u.路由键 IS NOT NULL AND u.路由键=r.路由键 RETURN DISTINCT p.全限定名 AS 发布者, q.队列名称 AS 队列, r.路由键 AS 路由键",
+      "columns": [
+        {
+          "name": "发布者",
+          "aliases": [
+            "publisher",
+            "发布方法",
+            "发布方法全限定名"
+          ]
+        },
+        {
+          "name": "队列",
+          "aliases": [
+            "queue",
+            "队列名称",
+            "消息队列"
+          ]
+        },
+        {
+          "name": "路由键",
+          "aliases": [
+            "routing_key",
+            "routingKey",
+            "绑定键"
+          ]
+        }
+      ],
+      "expected_rows": [
+        {
+          "发布者": "lantern.gallery.ShowCoordinator.emitAudit",
+          "队列": "lantern_audit",
+          "路由键": "audit.recorded"
+        },
+        {
+          "发布者": "lantern.notice.DispatchInbox.emitReceipt",
+          "队列": "lantern_audit",
+          "路由键": "audit.recorded"
+        }
+      ]
+    },
+    {
+      "id": "H05",
+      "level": "困难",
+      "question": "对 ts-lantern-gallery-service，分别找出直达 REST 服务及经真实发布到消费路径到达的 MQ 服务。把两个名单做笛卡尔积，每行只返回 REST服务、MQ服务。",
+      "reference_cypher": "MATCH (r:微服务)<-[:目标服务]-(:下游API)<-[:下游调用]-(:方法)-[:归属于]->(:类)-[:归属于]->(s:微服务) MATCH (s)<-[:归属于]-(:类)<-[:归属于]-(:方法)-[p:发布至]->(:消息交换机)-[b:路由至]->(:消息队列)-[:消费自]->(:方法)-[:归属于]->(:类)-[:归属于]->(m:微服务) WHERE s.服务名称='ts-lantern-gallery-service' AND p.路由键 IS NOT NULL AND p.路由键=b.路由键 RETURN DISTINCT r.服务名称 AS REST服务, m.服务名称 AS MQ服务",
+      "columns": [
+        {
+          "name": "REST服务",
+          "aliases": [
+            "rest_service",
+            "REST目标",
+            "同步服务",
+            "同步目标"
+          ]
+        },
+        {
+          "name": "MQ服务",
+          "aliases": [
+            "mq_service",
+            "MQ目标",
+            "异步服务",
+            "异步目标"
+          ]
+        }
+      ],
+      "expected_rows": [
+        {
+          "REST服务": "ts-lantern-exhibit-service",
+          "MQ服务": "ts-lantern-notice-service"
+        },
+        {
+          "REST服务": "ts-lantern-exhibit-service",
+          "MQ服务": "ts-lantern-audit-service"
+        },
+        {
+          "REST服务": "ts-lantern-calendar-service",
+          "MQ服务": "ts-lantern-notice-service"
+        },
+        {
+          "REST服务": "ts-lantern-calendar-service",
+          "MQ服务": "ts-lantern-audit-service"
+        }
+      ]
+    },
+    {
+      "id": "H06",
+      "level": "困难",
+      "question": "用具体方法依赖确认调用方向：openShow 的每个直接调用或接口调用，返回调用者和被调用者各自的方法全限定名。",
+      "reference_cypher": "MATCH (m:方法)-[:调用|接口调用]->(t:方法) WHERE m.方法名='openShow' RETURN DISTINCT m.全限定名 AS 调用者, t.全限定名 AS 被调用者",
+      "columns": [
+        {
+          "name": "调用者",
+          "aliases": [
+            "caller",
+            "调用方",
+            "调用方法"
+          ]
+        },
+        {
+          "name": "被调用者",
+          "aliases": [
+            "callee",
+            "被调用方",
+            "被调用方法"
+          ]
+        }
+      ],
+      "expected_rows": [
+        {
+          "调用者": "lantern.gallery.ShowCoordinator.openShow",
+          "被调用者": "lantern.exhibit.ObjectRegistry.listObjects"
+        },
+        {
+          "调用者": "lantern.gallery.ShowCoordinator.openShow",
+          "被调用者": "lantern.calendar.VisitCalendar.getWindows"
+        },
+        {
+          "调用者": "lantern.gallery.ShowCoordinator.openShow",
+          "被调用者": "lantern.gallery.ShowCoordinator.publishOpening"
+        }
+      ]
+    },
+    {
+      "id": "H07",
+      "level": "困难",
+      "question": "通过 REST 下游 API 的外部调用映射，找出从 openShow 经过恰好两次服务间 REST 跳转可到哪个服务。每行只留最终的入口路径和归属服务。",
+      "reference_cypher": "MATCH (m:方法)-[:下游调用]->(:下游API)-[:外部调用]->(:上游API)-[:归属于]->(bridge:方法)-[:下游调用]->(:下游API)-[:外部调用]->(a:上游API)-[:归属于]->(:方法)-[:归属于]->(:类)-[:归属于]->(s:微服务) WHERE m.方法名='openShow' RETURN DISTINCT a.API路径 AS 入口路径, s.服务名称 AS 归属服务",
+      "columns": [
+        {
+          "name": "入口路径",
+          "aliases": [
+            "entry",
+            "entry_path",
+            "路径",
+            "入口API"
+          ]
+        },
+        {
+          "name": "归属服务",
+          "aliases": [
+            "owner",
+            "owning_service",
+            "所属服务",
+            "目标服务"
+          ]
+        }
+      ],
+      "expected_rows": [
+        {
+          "入口路径": "/lantern/archive/records/{recordId}",
+          "归属服务": "ts-lantern-archive-service"
+        }
+      ]
+    },
+    {
+      "id": "H08",
+      "level": "困难",
+      "question": "检查 lantern_orphan 消息队列是否有从发布到消费的完整链路。返回发布者方法全名、交换机名、队列名、消费者方法全名；若没有消费者则返回空。",
+      "reference_cypher": "MATCH (p:方法)-[u:发布至]->(e:消息交换机)-[r:路由至]->(q:消息队列)-[:消费自]->(c:方法) WHERE q.队列名称='lantern_orphan' AND u.路由键 IS NOT NULL AND u.路由键=r.路由键 RETURN DISTINCT p.全限定名 AS 发布者, e.交换机名称 AS 交换机, q.队列名称 AS 队列, c.全限定名 AS 消费者",
+      "columns": [
+        {
+          "name": "发布者",
+          "aliases": [
+            "publisher",
+            "发布方法",
+            "发布方法全限定名"
+          ]
+        },
+        {
+          "name": "交换机",
+          "aliases": [
+            "exchange",
+            "交换机名称",
+            "消息交换机"
+          ]
+        },
+        {
+          "name": "队列",
+          "aliases": [
+            "queue",
+            "队列名称",
+            "消息队列"
+          ]
+        },
+        {
+          "name": "消费者",
+          "aliases": [
+            "consumer",
+            "消费方法",
+            "消费方法全限定名"
+          ]
+        }
+      ],
+      "expected_rows": [],
+      "expect_empty": true
+    }
+  ],
+  "knowledge": [
+    {
+      "id": "KB01",
+      "category": "实体属性",
+      "question": "后台运维里负责缓存的类有怎样的简名？",
+      "cypher": "MATCH (c:类)-[:归属于]->(s:微服务) WHERE s.服务名称='ts-lantern-ops-service' RETURN DISTINCT c.简单名 AS 类名"
+    },
+    {
+      "id": "KB02",
+      "category": "入口发现",
+      "question": "文档站里创建快照走哪个入口？只看 POST。",
+      "cypher": "MATCH (a:上游API)-[:归属于]->(m:方法) WHERE m.方法名='snapshotHelp' AND a.HTTP方法='POST' RETURN DISTINCT a.API路径 AS 路径"
+    },
+    {
+      "id": "KB03",
+      "category": "跨服务依赖",
+      "question": "重建索引在 HTTP 层会访问哪个帮助服务？",
+      "cypher": "MATCH (m:方法)-[:下游调用]->(:下游API)-[:目标服务]->(s:微服务) WHERE m.方法名='rebuildIndex' RETURN DISTINCT s.服务名称 AS 服务"
+    },
+    {
+      "id": "KB04",
+      "category": "反向影响",
+      "question": "变更 rebuildIndex 时哪个运维方法会受直接影响？",
+      "cypher": "MATCH (start:方法)-[:调用|接口调用]->(end:方法) WHERE end.方法名='rebuildIndex' RETURN DISTINCT start.全限定名 AS 方法"
+    },
+    {
+      "id": "KB05",
+      "category": "调用关系",
+      "question": "跟踪从 lookupHelp 出发在同个类里继续调用的那个方法。",
+      "cypher": "MATCH (m:方法)-[:调用]->(t:方法) MATCH (m)-[:归属于]->(c:类)<-[:归属于]-(t) WHERE m.方法名='lookupHelp' RETURN DISTINCT t.方法名 AS 方法"
+    },
+    {
+      "id": "KB06",
+      "category": "消息链路",
+      "question": "emitReceipt 的消息路径能闭合到真实消费者吗？保留能够验证的整条路径。",
+      "cypher": "MATCH path=(m:方法)-[p:发布至]->(:消息交换机)-[r:路由至]->(:消息队列)-[:消费自]->(:方法) WHERE m.方法名='emitReceipt' AND p.路由键 IS NOT NULL AND p.路由键=r.路由键 RETURN DISTINCT path"
+    }
+  ]
+}
